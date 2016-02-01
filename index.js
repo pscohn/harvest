@@ -16,5 +16,5 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('folder')
+  document.getElementById('main')
 );

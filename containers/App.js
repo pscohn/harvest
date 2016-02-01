@@ -1,63 +1,51 @@
-import React from 'react/addons';
+import React, { Component } from 'react/addons';
 import { connect } from 'react-redux';
 import {
-  fetchRecentEntries,
-  submitNewEntry,
-  editEntryBegin,
-  editEntryEnd,
-  editEntrySubmit,
-  submitDeleteEntry,
-} from '../actions/actions';
+  advanceDay,
+  advanceSeason,
+} from '../actions/time';
+
+import Day from '../components/Day';
+import SleepButton from '../components/SleepButton';
 
 const $ = require('jquery');
 window.$ = $;
 window.jQuery = $;
 require('bootstrap');
 
-const App = React.createClass({
-  componentDidMount: function() {
-    const { dispatch } = this.props
-    dispatch(fetchRecentEntries());
-  },
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.advanceDay = this.advanceDay.bind(this);
+  }
 
-  editEntry: function(id) {
-    const { dispatch } = this.props;
-    if (this.props.entries.editing.indexOf(id) > -1) {
-      return;
+  advanceDay() {
+    if (this.props.time.day === 30) {
+      this.props.dispatch(advanceSeason());
     }
-    dispatch(editEntryBegin(id));
-  },
-  
-  newEntrySubmit: function() {
-    const { dispatch } = this.props;
-    dispatch(submitNewEntry());
-  },
+    this.props.dispatch(advanceDay());
+  }
 
-  editEntrySubmit: function(id, title, notes) {
-    const { dispatch } = this.props;
-    dispatch(editEntrySubmit(id, title, notes));
-  },
-
-  deleteEntry: function(id, type) {
-    const { dispatch } = this.props;
-    if (this.props.entries.editing.indexOf(id) > -1) {
-      dispatch(editEntryEnd(id));
-    }
-    dispatch(submitDeleteEntry(id));
-  },
-
-  render: function() {
+  render() {
     return (
       <div>
+        <Day
+          season={this.props.time.SEASONS[this.props.time.season]}
+          day={this.props.time.day}
+        />
+        <SleepButton advanceDay={this.advanceDay} />
       </div>
     )
   }
-});
+}
 
 function mapStateToProps(state) {
-  const { entries } = state;
+  const { time, money, being, field } = state;
   return {
-    entries,
+    time,
+    money,
+    being,
+    field,
   };
 }
 
