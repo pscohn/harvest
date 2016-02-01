@@ -1,4 +1,4 @@
-import React, { Component } from 'react/addons';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   advanceDay,
@@ -7,6 +7,8 @@ import {
 
 import Day from '../components/Day';
 import SleepButton from '../components/SleepButton';
+import Field from '../components/Field';
+import Inventory from '../components/Inventory';
 
 const $ = require('jquery');
 window.$ = $;
@@ -33,7 +35,9 @@ export default class App extends Component {
           season={this.props.time.SEASONS[this.props.time.season]}
           day={this.props.time.day}
         />
+        <Inventory money={this.props.money.amount} />
         <SleepButton advanceDay={this.advanceDay} />
+        <Field squares={this.props.field.squares} />
       </div>
     )
   }

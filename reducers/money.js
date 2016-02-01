@@ -1,7 +1,8 @@
 import * as types from '../constants/ActionTypes';
+import { config } from '../config';
 
 export default function money(state = {
-  amount: 100,
+  amount: config.DEFAULT_MONEY,
 }, action) {
   switch (action.type) {
   case types.INCREASE_MONEY:

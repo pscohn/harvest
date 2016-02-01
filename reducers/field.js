@@ -8,13 +8,11 @@ const defaultSquare = {
 };
 
 export default function field(state = {
-  squaresOwned: 0,
   squares: [],
 }, action) {
   switch (action.type) {
   case types.ADD_SQUARE:
     return Object.assign({}, state, {
-      squaresOwned: state.squaresOwned + 1,
       squares: [
         ...state.squares,
         defaultSquare,

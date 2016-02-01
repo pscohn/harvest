@@ -1,6 +1,7 @@
 // economy with dynamic pricing, supply/demand?
 
-export default config = {
+export const config = {
+  DEFAULT_MONEY: 100,
   SQUARE_COST: 100,
   SEEDS: {
     spring: [
@@ -28,4 +29,4 @@ export default config = {
       shipPrice: 100,
     },
   ],
-}
+};
